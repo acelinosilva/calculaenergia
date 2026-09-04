@@ -1,0 +1,6 @@
+{
+  "name": "Calculadora de Conta de Energia",
+  "description": "Calculadora de valor estimado da conta de energia elétrica, conferência de fatura, simulador de leitura do medidor e consumo por aparelho conforme regras ANEEL.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
