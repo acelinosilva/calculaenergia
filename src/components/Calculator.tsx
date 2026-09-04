@@ -16,6 +16,7 @@ import {
   TipoLigacao,
   UF
 } from '../types';
+import { ShareButtons } from './ShareButtons';
 import {
   Calculator as CalcIcon,
   CheckCircle2,
@@ -568,6 +569,18 @@ export const Calculator: React.FC<CalculatorProps> = ({ initialKwh, onNavigate }
                 <Info className="w-3.5 h-3.5 inline mr-1 text-slate-400" />
                 Valor estimado para a distribuidora <strong>{currentConcessionaria.nome}</strong>. Variações podem ocorrer por taxas municipais específicas e arredondamentos fiscais.
               </div>
+
+              {/* Real Social Share Box */}
+              <ShareButtons
+                variant="card"
+                data={{
+                  title: `Cálculo de Conta de Luz: R$ ${resultadoCalculo.valorTotalEstimado.toFixed(2)} (${resultadoCalculo.consumoFaturadoKwh} kWh) - CalculaEnergia`,
+                  url: 'https://calculaenergia.vercel.app/',
+                  kwh: resultadoCalculo.consumoFaturadoKwh,
+                  valorEstimado: resultadoCalculo.valorTotalEstimado,
+                  distribuidora: currentConcessionaria.nome,
+                }}
+              />
             </div>
 
             {/* Verification Result Card (If User inputted invoice value) */}

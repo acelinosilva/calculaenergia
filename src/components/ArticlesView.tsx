@@ -11,9 +11,11 @@ import {
   ArrowRight,
   Send,
   HelpCircle,
-  ChevronDown
+  ChevronDown,
+  Share2
 } from 'lucide-react';
 import { AdSlot } from './AdSlot';
+import { ShareButtons } from './ShareButtons';
 
 interface ArticlesViewProps {
   route: PageRoute;
@@ -90,6 +92,22 @@ export const ArticlesView: React.FC<ArticlesViewProps> = ({ route, onNavigate })
           <p className="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed">
             {pageData.subheadline}
           </p>
+
+          {/* Social Sharing Bar for this Article */}
+          <div className="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <span className="text-xs text-slate-500 font-medium">
+              Gostou deste artigo? Compartilhe com quem precisa economizar energia:
+            </span>
+            <ShareButtons
+              variant="inline"
+              label="Compartilhar Guia"
+              data={{
+                title: pageData.title,
+                url: `https://calculaenergia.vercel.app/${route}`,
+                text: `💡 Confira este guia prático no CalculaEnergia: ${pageData.h1}`,
+              }}
+            />
+          </div>
         </header>
 
         {/* AdSense Top In-Content */}

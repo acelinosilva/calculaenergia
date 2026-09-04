@@ -39,7 +39,7 @@ export const JsonLd: React.FC<JsonLdProps> = ({ route }) => {
         '@type': 'ListItem',
         position: idx + 1,
         name: crumb.label,
-        item: `https://calculadoracontadeenergia.com.br/${crumb.route || ''}`
+        item: `https://calculaenergia.vercel.app/${crumb.route || ''}`
       }))
     });
 
@@ -49,7 +49,7 @@ export const JsonLd: React.FC<JsonLdProps> = ({ route }) => {
         '@context': 'https://schema.org',
         '@type': 'WebApplication',
         name: 'Calculadora de Conta de Energia Elétrica',
-        url: 'https://calculadoracontadeenergia.com.br/',
+        url: 'https://calculaenergia.vercel.app/',
         applicationCategory: 'UtilityApplication',
         operatingSystem: 'All',
         offers: {

@@ -108,11 +108,11 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate }) => {
           </nav>
 
           {/* Quick CTA button */}
-          <div className="hidden sm:flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-3">
             <button
               id="header-cta-calc-btn"
               onClick={() => handleNavClick('home')}
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/30 transition-all active:scale-95"
+              className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-all active:scale-95"
             >
               Simular Fatura
             </button>
@@ -157,7 +157,7 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate }) => {
             );
           })}
 
-          <div className="pt-4 mt-3 border-t border-slate-100 flex flex-col gap-2">
+          <div className="pt-4 mt-3 border-t border-slate-100 flex flex-col gap-3">
             <button
               id="mobile-nav-cta-btn"
               onClick={() => handleNavClick('home')}

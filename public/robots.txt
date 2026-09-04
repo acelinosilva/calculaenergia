@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://calculaenergia.vercel.app
+
+# Sitemap
+Sitemap: https://calculaenergia.vercel.app/sitemap.xml

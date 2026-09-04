@@ -2,6 +2,7 @@ import React from 'react';
 import { PageRoute } from '../types';
 import { Zap, ShieldAlert, ArrowUpRight } from 'lucide-react';
 import { ULTIMA_ATUALIZACAO_TARIFAS, FONTE_DADOS_OFICIAL } from '../data/tariffs';
+import { ShareButtons } from './ShareButtons';
 
 interface FooterProps {
   onNavigate: (route: PageRoute) => void;
@@ -54,6 +55,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <span className="text-slate-300 font-medium">Base de Tarifas:</span> {ULTIMA_ATUALIZACAO_TARIFAS}
               <br />
               <span className="text-slate-500">{FONTE_DADOS_OFICIAL}</span>
+            </div>
+
+            <div className="pt-2">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
+                Compartilhe o CalculaEnergia:
+              </span>
+              <ShareButtons variant="inline" label="Compartilhar" />
             </div>
           </div>
 

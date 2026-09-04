@@ -624,7 +624,7 @@ export const SEO_PAGES: Record<PageRoute, SeoPageData> = {
         title: 'Canal de Comunicação com a Equipe',
         body: [
           'Valorizamos o feedback da comunidade para manter as tarifas de todas as distribuidoras do Brasil sempre atualizadas e fiéis às revisões tarifárias da ANEEL.',
-          'Para sugestões, correções ou dúvidas institucionais, utilize nosso formulário abaixo ou envie um e-mail para: contato@calculadoracontadeenergia.com.br'
+          'Para sugestões, correções ou dúvidas institucionais, utilize nosso formulário abaixo ou envie um e-mail para: contato@calculaenergia.vercel.app'
         ]
       }
     ]

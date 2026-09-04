@@ -30,22 +30,35 @@ export default function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>('home');
   const [sharedKwh, setSharedKwh] = useState<number>(220);
 
-  // Sync hash routing
+  // Sync hash and pathname routing
   useEffect(() => {
-    const handleHashChange = () => {
+    const resolveRoute = () => {
+      // 1. Check hash first
       const hash = window.location.hash.replace('#', '') as PageRoute;
       if (hash && SEO_PAGES[hash]) {
         setCurrentRoute(hash);
-      } else {
-        setCurrentRoute('home');
+        return;
       }
+
+      // 2. Check pathname (e.g. /como-ler-medidor-analogico on Vercel)
+      const path = window.location.pathname.replace(/^\//, '').replace(/\/$/, '') as PageRoute;
+      if (path && SEO_PAGES[path]) {
+        setCurrentRoute(path);
+        return;
+      }
+
+      setCurrentRoute('home');
     };
 
     // Initial check
-    handleHashChange();
+    resolveRoute();
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', resolveRoute);
+    window.addEventListener('popstate', resolveRoute);
+    return () => {
+      window.removeEventListener('hashchange', resolveRoute);
+      window.removeEventListener('popstate', resolveRoute);
+    };
   }, []);
 
   const navigateTo = (route: PageRoute) => {
