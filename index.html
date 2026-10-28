@@ -2,6 +2,46 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        window.addEventListener(
+          'error',
+          function (e) {
+            var msg = (e && e.message) || '';
+            var file = (e && e.filename) || '';
+            if (
+              file.indexOf('chrome-extension://') !== -1 ||
+              msg.indexOf('Cannot set property fetch') !== -1
+            ) {
+              e.stopImmediatePropagation();
+              e.preventDefault();
+              return false;
+            }
+          },
+          true
+        );
+        try {
+          var desc =
+            Object.getOwnPropertyDescriptor(window, 'fetch') ||
+            Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+          if (desc && desc.get && !desc.set && desc.configurable !== false) {
+            var currentFetch = window.fetch.bind(window);
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function () {
+                return currentFetch;
+              },
+              set: function (v) {
+                if (typeof v === 'function') {
+                  currentFetch = v;
+                }
+              }
+            });
+          }
+        } catch (err) {}
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora de Conta de Energia Elétrica — Veja se o Valor Está Correto</title>
     <meta name="description" content="Calcule o valor estimado da sua conta de luz em kWh, confira se a fatura da distribuidora está correta, aprenda a ler o medidor analógico ou digital e calcule o consumo por aparelho." />
@@ -39,6 +79,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Ad Script -->
+    <script src="https://pl32072794.profitableratecpmnetwork.com/e2/70/66/e27066f29864b13cdfd3ef95da3752d7.js"></script>
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased selection:bg-emerald-100 selection:text-emerald-900 font-sans">
     <div id="root"></div>

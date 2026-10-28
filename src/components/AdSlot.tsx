@@ -7,49 +7,108 @@ interface AdSlotProps {
   className?: string;
 }
 
+const AD_SRC_DOC = `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        window.addEventListener(
+          'error',
+          function (e) {
+            var msg = (e && e.message) || '';
+            var file = (e && e.filename) || '';
+            if (
+              file.indexOf('chrome-extension://') !== -1 ||
+              msg.indexOf('Cannot set property fetch') !== -1
+            ) {
+              e.stopImmediatePropagation();
+              e.preventDefault();
+              return false;
+            }
+          },
+          true
+        );
+        try {
+          var desc =
+            Object.getOwnPropertyDescriptor(window, 'fetch') ||
+            Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+          if (desc && desc.get && !desc.set && desc.configurable !== false) {
+            var currentFetch = window.fetch.bind(window);
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function () {
+                return currentFetch;
+              },
+              set: function (v) {
+                if (typeof v === 'function') {
+                  currentFetch = v;
+                }
+              }
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 250px;
+        overflow: hidden;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      atOptions = {
+        'key' : '97c414d22f3cbe3dbb0ec4f238337069',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highrevenueformat.com/97c414d22f3cbe3dbb0ec4f238337069/invoke.js"></script>
+  </body>
+</html>`;
+
 export const AdSlot: React.FC<AdSlotProps> = ({
   id = 'ad-slot',
-  format = 'in-content',
   label = 'Publicidade',
   className = '',
 }) => {
-  // Styles based on AdSense standard dimensions
-  const getFormatClasses = () => {
-    switch (format) {
-      case 'leaderboard':
-        return 'w-full min-h-[90px] max-w-[728px]';
-      case 'rectangle':
-        return 'w-full min-h-[250px] max-w-[336px]';
-      case 'sidebar':
-        return 'w-full min-h-[600px] max-w-[300px]';
-      case 'in-content':
-      default:
-        return 'w-full min-h-[110px] max-w-full';
-    }
-  };
-
   return (
     <aside
       id={id}
       aria-label={label}
-      className={`my-6 mx-auto flex flex-col items-center justify-center p-3 rounded-xl border border-dashed border-slate-300/80 bg-slate-100/60 transition-colors ${getFormatClasses()} ${className}`}
+      className={`my-6 mx-auto flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200/80 bg-slate-100/50 transition-colors w-full max-w-full ${className}`}
     >
-      <div className="flex items-center justify-between w-full max-w-md px-2 pb-1.5 mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-200/60">
+      <div className="flex items-center justify-center w-full max-w-[300px] pb-1.5 mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
         <span>{label}</span>
-        <span className="text-[9px] lowercase font-normal text-slate-400">google adsense ready</span>
       </div>
 
-      <div className="flex flex-col items-center justify-center text-center py-2 text-slate-500">
-        <div className="w-8 h-8 rounded-full bg-slate-200/80 flex items-center justify-center mb-1.5 text-slate-400 text-xs font-mono">
-          AD
-        </div>
-        <p className="text-xs font-medium text-slate-600">
-          Espaço Reservado para Anúncios Relevantes
-        </p>
-        <p className="text-[11px] text-slate-400 mt-0.5 max-w-xs">
-          Energia Solar Residencial • Eletrodomésticos Procel A • Geradores e Climatização
-        </p>
+      <div className="flex items-center justify-center w-[300px] h-[250px] max-w-full overflow-hidden rounded-lg">
+        <iframe
+          srcDoc={AD_SRC_DOC}
+          title={`${label} - ${id}`}
+          width={300}
+          height={250}
+          scrolling="no"
+          frameBorder={0}
+          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+          className="w-[300px] h-[250px] border-0 overflow-hidden"
+        />
       </div>
     </aside>
   );
 };
+
+
